@@ -4,26 +4,60 @@ const typeDefs = `
     username: String
     email: String
     password: String
-    thoughts: [Thought]!
   }
 
-  type Thought {
-    _id: ID
-    thoughtText: String
-    thoughtAuthor: String
-    createdAt: String
-    comments: [Comment]!
+  type Credit {
+    referenceId: ID
+    modelType: String
+    roleType: String
+    role: String
   }
 
-  type Comment {
-    _id: ID
-    commentText: String
-    createdAt: String
+  type Person {
+    tmdbID: ID
+    name: String
+    gender: Number
+    primaryRole: String
+    credits: [Credit]!
   }
 
-  input ThoughtInput {
-    thoughtText: String!
-    thoughtAuthor: String!
+  type GenreMovie {
+    tmdbID: ID
+    name: String
+  }
+
+  type GenreTV {
+    tmdbID: ID
+    name: String
+  }
+
+  type Movie {
+    tmdbID: ID
+    title: String
+    tagline: String
+    releaseDate: String
+    runtime: Number
+    revenue: Number
+    overview: String
+    genre: [GenreMovie]
+    budget: Number
+    posterPath: String
+    cast: [Person]
+    crew: [Person]
+  }
+
+  type TVShow {
+    tmdbID: ID
+    name: String
+    createdBy: [Person]
+    startedAirDate: String
+    lastAirDate: String
+    genres: [GenreTV]
+    seasons: Number
+    episodes: Number
+    overview: String
+    posterPath: String
+    tagline: String
   }
 
   input UserInput {
@@ -56,3 +90,5 @@ const typeDefs = `
 `;
 
 export default typeDefs;
+
+// Must add the functionality(another model?) for the user to create their oewn metrics, connect to user/movie, then find a way to make that scalable so that the metrics can be combined, QUERIES AND MUTATIONS NOT TOUCHED

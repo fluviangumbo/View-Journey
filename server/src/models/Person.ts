@@ -4,6 +4,7 @@ import { Schema, model, Document } from 'mongoose';
 interface ICredit extends Document {
     referenceId: Schema.Types.ObjectId;
     modelType: 'Movie' | 'TV';
+    roleType: string;
     role: string;
 }
 
@@ -18,6 +19,11 @@ const creditSchema = new Schema<ICredit>(
             type: String,
             required: true,
             enum: ['Movie', 'TV'],
+        },
+        roleType: {
+            type: String,
+            required: true,
+            unique: false,
         },
         role: {
             type: String,
