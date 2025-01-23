@@ -71,6 +71,20 @@ const typeDefs = `
     user: User
   }
 
+  type Metric {
+    _id: ID!
+    name: String!
+    score: Number!
+  }
+
+  type Critique {
+    _id: ID!
+    user: User
+    movie?: Movie
+    show?: TVShow
+    metrics: [Metric]
+  }
+
   type Query {
     users: [User]
     user(username: String!): User
@@ -92,3 +106,5 @@ const typeDefs = `
 export default typeDefs;
 
 // Must add the functionality(another model?) for the user to create their oewn metrics, connect to user/movie, then find a way to make that scalable so that the metrics can be combined, QUERIES AND MUTATIONS NOT TOUCHED
+
+// CHANGES TO MODELS - Added score and metric/critique complexity and set up for templates and referencing others metrics, now need to add typedefs and finalize this side - if we can do that, we should just have resolvers for backend and then we can test with dummy data or jump right into cron/worker for tmdb API
