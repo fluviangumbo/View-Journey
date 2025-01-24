@@ -5,7 +5,7 @@ interface IScore extends Document {
     referenceMetric: Schema.Types.ObjectId;
     scoreNum?: number;
     scoreAlt?: string;
-    rubric: string;
+    scoreDetails: string;
 };
 
 const scoreSchema = new Schema<IScore>(
@@ -26,12 +26,12 @@ const scoreSchema = new Schema<IScore>(
         scoreAlt: {
             type: String,
         },
-        rubric: {
+        scoreDetails: {
             type: String,
         },
     },
     {
-        _id: false,
+        _id: true,
     },
 );
 

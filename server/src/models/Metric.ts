@@ -2,6 +2,7 @@ import { Schema, model, Document } from 'mongoose';
 
 interface IMetric extends Document {
     name: string;
+    description: string;
     // scores: Schema.Types.ObjectId[];
     subMetrics?: Schema.Types.ObjectId[];
     createdBy: Schema.Types.ObjectId;
@@ -12,6 +13,10 @@ const metricSchema = new Schema<IMetric>(
         name: {
             type: String,
             required: true,
+        },
+        description: {
+            type: String,
+            required: false,
         },
         // scores: [{
         //     type: Schema.Types.ObjectId,
