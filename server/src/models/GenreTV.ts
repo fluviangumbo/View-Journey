@@ -7,7 +7,7 @@ interface IGenreTV extends Document {
 
 const genreTVSchema = new Schema<IGenreTV>(
     {
-        _id: {
+        tmdbID: {
             type: Schema.Types.ObjectId,
             required: true,
             unique: true,
