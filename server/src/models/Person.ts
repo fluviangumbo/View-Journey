@@ -2,16 +2,16 @@ import { Schema, model, Document } from 'mongoose';
 
 // do we need a role or department? how should we list the people's credits specifically
 interface ICredit extends Document {
-    referenceId: Schema.Types.ObjectId;
+    referenceId: number;
     modelType: 'Movie' | 'TV';
     roleType: string;
     role: string;
-}
+};
 
 const creditSchema = new Schema<ICredit>(
     {
         referenceId: {
-            type: Schema.Types.ObjectId,
+            type: Number,
             required: true,
             unique: false,
         },
@@ -31,20 +31,23 @@ const creditSchema = new Schema<ICredit>(
             unique: false,
         },
     },
+    {
+        _id: false,
+    },
 );
 
 interface IPerson extends Document {
-    tmdbID: Schema.Types.ObjectId;
+    tmdbID: number;
     name: string;
     gender: number;
     primaryRole: string;
     credits: ICredit[];
-}
+};
 
 const personSchema = new Schema<IPerson>(
     {
         tmdbID: {
-            type: Schema.Types.ObjectId,
+            type: Number,
             required: true,
             unique: true,
         },
@@ -67,7 +70,7 @@ const personSchema = new Schema<IPerson>(
         credits: [creditSchema],
     },
     {
-        _id: false,
+        _id: true,
     },
 );
 

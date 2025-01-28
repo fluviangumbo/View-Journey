@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 interface ITVShow extends Document {
-    tmdbID: Schema.Types.ObjectId;
+    tmdbID: number;
     name: string;
     createdBy: Schema.Types.ObjectId[];
     startAirDate: string;
@@ -12,12 +12,12 @@ interface ITVShow extends Document {
     overview: string;
     posterPath: string;
     tagline: string;
-}
+};
 
 const tvSchema = new Schema<ITVShow>(
     {
         tmdbID: {
-            type: Schema.Types.ObjectId,
+            type: Number,
             unique: true,
             required: true,
         },
@@ -55,9 +55,6 @@ const tvSchema = new Schema<ITVShow>(
         tagline: {
             type: String,
         },
-    },
-    {
-        _id: false,
     },
 );
 

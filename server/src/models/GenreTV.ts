@@ -1,14 +1,14 @@
 import { Schema, model, Document } from 'mongoose';
 
 interface IGenreTV extends Document {
-    tmdbID: Schema.Types.ObjectId;
+    tmdbID: number;
     name: string;
-}
+};
 
 const genreTVSchema = new Schema<IGenreTV>(
     {
         tmdbID: {
-            type: Schema.Types.ObjectId,
+            type: Number,
             required: true,
             unique: true,
             trim: true,
@@ -21,9 +21,9 @@ const genreTVSchema = new Schema<IGenreTV>(
         },
     },
     {
-        _id: false,
-    }
-)
+        _id: true,
+    },
+);
 
 const GenreTV = model<IGenreTV>('Genre, TV', genreTVSchema);
 

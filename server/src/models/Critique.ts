@@ -5,7 +5,7 @@ interface ICritique extends Document {
     film?: Schema.Types.ObjectId;
     show?: Schema.Types.ObjectId;
     metricScores: Schema.Types.ObjectId[];
-}
+};
 
 const critiqueSchema = new Schema<ICritique>(
     {

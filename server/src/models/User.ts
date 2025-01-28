@@ -8,7 +8,7 @@ interface IUser extends Document {
   password: string;
   // thoughts: Schema.Types.ObjectId[];
   isCorrectPassword(password: string): Promise<boolean>;
-}
+};
 
 // Define the schema for the User document
 const userSchema = new Schema<IUser>(
@@ -35,6 +35,7 @@ const userSchema = new Schema<IUser>(
     timestamps: true,
     toJSON: { getters: true },
     toObject: { getters: true },
+    _id: true,
   }
 );
 

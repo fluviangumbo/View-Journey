@@ -1,14 +1,14 @@
 import { Schema, model, Document } from 'mongoose';
 
 interface IGenreMovie extends Document {
-    tmdbID: Schema.Types.ObjectId;
+    tmdbID: number;
     name: string;
-}
+};
 
 const genreMovieSchema = new Schema<IGenreMovie>(
     {
         tmdbID: {
-            type: Schema.Types.ObjectId,
+            type: Number,
             required: true,
             unique: true,
             trim: true,
@@ -21,9 +21,9 @@ const genreMovieSchema = new Schema<IGenreMovie>(
         },
     },
     {
-        _id: false,
-    }
-)
+        _id: true,
+    },
+);
 
 const GenreMovie = model<IGenreMovie>('Genre, Movies', genreMovieSchema);
 

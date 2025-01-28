@@ -2,7 +2,7 @@ import { Schema, model, Document } from 'mongoose';
 // import { GenreMovie } from './GenreMovie.js';
 
 interface IMovie extends Document {
-    tmdbID: Schema.Types.ObjectId;
+    tmdbID: number;
     title: string;
     tagline: string;
     releaseDate: string;
@@ -14,12 +14,12 @@ interface IMovie extends Document {
     posterPath: string;
     cast: Schema.Types.ObjectId[];
     crew: Schema.Types.ObjectId[];
-}
+};
 
 const movieSchema = new Schema<IMovie>(
     {
         tmdbID: {
-            type: Schema.Types.ObjectId,
+            type: Number,
             required: true,
             unique: true,
         },
@@ -77,7 +77,7 @@ const movieSchema = new Schema<IMovie>(
         }]
     },
     {
-        _id: false,
+        _id: true,
     },
 );
 

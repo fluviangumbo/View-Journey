@@ -7,54 +7,60 @@ const typeDefs = `
   }
 
   type Credit {
-    referenceId: ID
+    _id: ID
+    referenceId: Int
     modelType: String
     roleType: String
     role: String
   }
 
   type Person {
-    tmdbID: ID
+    _id: ID
+    tmdbID: Int
     name: String
-    gender: Number
+    gender: Int
     primaryRole: String
     credits: [Credit]!
   }
 
   type GenreMovie {
-    tmdbID: ID
+    _id: ID
+    tmdbID: Int
     name: String
   }
 
   type GenreTV {
-    tmdbID: ID
+    _id: ID
+    tmdbID: Int
     name: String
   }
 
   type Movie {
-    tmdbID: ID
+    _id: ID
+    tmdbID: Int
     title: String
     tagline: String
     releaseDate: String
-    runtime: Number
-    revenue: Number
+    runtime: Int
+    revenue: Int
     overview: String
     genre: [GenreMovie]
-    budget: Number
+    budget: Int
     posterPath: String
     cast: [Person]
     crew: [Person]
   }
 
   type TVShow {
-    tmdbID: ID
+    _id: ID
+    tmdbID: Int
     name: String
     createdBy: [Person]
     startedAirDate: String
     lastAirDate: String
     genres: [GenreTV]
-    seasons: Number
-    episodes: Number
+    seasons: Int
+    episodes: Int
     overview: String
     posterPath: String
     tagline: String
@@ -72,66 +78,66 @@ const typeDefs = `
   }
 
   type Metric {
-    _id: ID!
+    _id: ID
     name: String
     description: String
     subMetrics: [Metric]
     createdBy: User
   }
 
-  type MetricInput {
+  input MetricInput {
     name: String!
     description: String
-    subMetrics: [Metric]
-    createdBy: User!
+    subMetrics: [ID!]
+    createdBy: ID!
   }
 
-  type MetricUpdate {
+  input MetricUpdate {
     name: String
     description: String
-    subMetrics: [Metric]
+    subMetrics: [ID]
   }
 
   type Score {
     _id: ID
     critique: Critique
     referenceMetric: Metric
-    scoreNum: Number
+    scoreNum: Int
     scoreAlt: String
     scoreDetails: String
   }
 
-  type ScoreInput {
-    critique: Critique!
-    referenceMetric: Metric!
-    scoreNum: Number
+  input ScoreInput {
+    critique: ID!
+    referenceMetric: ID!
+    scoreNum: Int
     scoreAlt: String
     scoreDetails: String
   }
 
-  type ScoreUpdate {
-    scoreNum: Number
+  input ScoreUpdate {
+    scoreNum: Int
     scoreAlt: String
     scoreDetails: String
   }
 
   type Critique {
-    _id: ID!
+    _id: ID
     user: User
-    film?: Movie
-    show?: TVShow
+    film: Movie
+    show: TVShow
     metricScores: [Score]
   }
 
-  type CritiqueInput {
-    user: User!
-    film?: Movie
-    show?: TVShow
-    metricScores: [Score]
+  input CritiqueInput {
+    user: ID!
+    film: ID
+    show: ID
+    metricScores: [ID]
   }
 
-  type CritiqueUpdate {
-    metricScores: [Score]
+  input CritiqueUpdate {
+    metricScores: [ID]
   }
 
   type Query {
