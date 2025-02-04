@@ -36,7 +36,7 @@ const creditSchema = new Schema<ICredit>(
     },
 );
 
-interface IPerson extends Document {
+export interface IPerson extends Document {
     tmdbID: number;
     name: string;
     gender: number;

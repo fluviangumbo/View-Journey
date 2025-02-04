@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 // import { GenreMovie } from './GenreMovie.js';
 
-interface IMovie extends Document {
+export interface IMovie extends Document {
     tmdbID: number;
     title: string;
     tagline: string;

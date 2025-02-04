@@ -1,6 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 
-interface ITVShow extends Document {
+export interface ITVShow extends Document {
     tmdbID: number;
     name: string;
     createdBy: Schema.Types.ObjectId[];
