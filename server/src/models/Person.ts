@@ -42,6 +42,7 @@ export interface IPerson extends Document {
     gender: number;
     primaryRole: string;
     credits: ICredit[];
+    lastUpdated: Date;
 };
 
 const personSchema = new Schema<IPerson>(
@@ -68,6 +69,10 @@ const personSchema = new Schema<IPerson>(
             required: false,
         },
         credits: [creditSchema],
+        lastUpdated: {
+            type: Date,
+            default: Date.now,
+        },
     },
     {
         _id: true,

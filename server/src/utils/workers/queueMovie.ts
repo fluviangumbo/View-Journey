@@ -1,4 +1,4 @@
-import cron from 'node-cron';
+// import cron from 'node-cron';
 import fetch from 'node-fetch';
 import { movieQueue } from './queues';
 import dotenv from 'dotenv';
@@ -14,7 +14,7 @@ async function fetchPopularMovies(page = 1) {
 
         if (!res.ok) throw new Error(`Error fetching movies on page ${page}`);
 
-        const data =await res.json();
+        const data = await res.json();
     
         for (const movie of data.results) {
             await movieQueue.add('fetchMovie', { itemId: movie.id });
@@ -42,4 +42,4 @@ async function fetchPopularMovies(page = 1) {
     }
 }
 
-cron.schedule('', () => fetchPopularMovies(1)); // not sure how we want to handle this, may not need ot be a cron job at all until we get to the updating endpoint
+// cron.schedule('', () => fetchPopularMovies(1)); not sure how we want to handle this, may not need ot be a cron job at all until we get to the updating endpoint
