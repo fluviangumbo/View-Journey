@@ -12,6 +12,7 @@ export interface ITVShow extends Document {
     overview: string;
     posterPath: string;
     tagline: string;
+    lastUpdated: Date;
 };
 
 const tvSchema = new Schema<ITVShow>(
@@ -54,6 +55,10 @@ const tvSchema = new Schema<ITVShow>(
         },
         tagline: {
             type: String,
+        },
+        lastUpdated: {
+            type: Date,
+            default: Date.now,
         },
     },
 );

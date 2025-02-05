@@ -27,7 +27,7 @@ function createWorker(queueName: string, itemType: 'movies' | 'tvShows' | 'peopl
 
                 await model.findOneAndUpdate(
                     { tmdbID: data.id },
-                    { ...data },
+                    { ...data, lastUpdated: new Date() },
                     { upsert: true, new: true }
                 );
 

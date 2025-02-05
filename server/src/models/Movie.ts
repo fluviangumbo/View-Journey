@@ -14,6 +14,7 @@ export interface IMovie extends Document {
     posterPath: string;
     cast: Schema.Types.ObjectId[];
     crew: Schema.Types.ObjectId[];
+    lastUpdated: Date;
 };
 
 const movieSchema = new Schema<IMovie>(
@@ -74,7 +75,11 @@ const movieSchema = new Schema<IMovie>(
         crew: [{
             type: Schema.Types.ObjectId,
             ref: 'Person',
-        }]
+        }],
+        lastUpdated: {
+            type: Date,
+            default: Date.now,
+        },
     },
     {
         _id: true,
