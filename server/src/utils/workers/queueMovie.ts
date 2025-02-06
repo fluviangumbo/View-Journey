@@ -43,3 +43,5 @@ async function fetchPopularMovies(page = 1) {
 }
 
 // cron.schedule('', () => fetchPopularMovies(1)); not sure how we want to handle this, may not need ot be a cron job at all until we get to the updating endpoint
+
+// NEW PLAN - we will export these functions to a central queuer who will use a cron job to pull the new id JSON for all three data types and then will run all three functions as part of larger functions that call the workers to process the queue, then once it is complete, we will start the next function which will also allow it's worker to process it's queue, etc.

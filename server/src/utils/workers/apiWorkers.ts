@@ -48,7 +48,7 @@ function createWorker(queueName: string, itemType: 'movies' | 'tvShows' | 'peopl
         },
         { 
             connection: { host: '127.0.0.1', port: 6379 },
-            limiter: { max: 15, duration: 1000 }
+            limiter: { max: 45, duration: 1000 }
         }
     );
 }
