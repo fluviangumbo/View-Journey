@@ -43,3 +43,5 @@ async function fetchPopularTV(page = 1) {
         }
     }
 }
+
+export default fetchPopularTV;

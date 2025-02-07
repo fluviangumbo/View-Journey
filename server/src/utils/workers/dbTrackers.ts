@@ -48,3 +48,5 @@ async function initializeTrackers() {
 const trackers = await initializeTrackers();
 
 export default trackers;
+
+// SEE NOT ON API WORKERS, this will be refactored

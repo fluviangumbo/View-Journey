@@ -7,6 +7,9 @@ import { ApolloServer } from '@apollo/server';// Note: Import from @apollo/serve
 import { expressMiddleware } from '@apollo/server/express4';
 import { typeDefs, resolvers } from './schemas/index.js';
 import { authenticateToken } from './utils/auth.js';
+import { createBullBoard } from 'bull-board';
+import { BullMQAdapter } from 'bull-board/BullMQAdapter';
+import { movieQueue, tvShowQueue, personQueue } from './utils/workers/queues.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -30,6 +33,14 @@ const startApolloServer = async () => {
       context: authenticateToken as any
     }
   ));
+
+  const { router: bullBoardRouter } = createBullBoard([
+    new BullMQAdapter(movieQueue),
+    new BullMQAdapter(tvShowQueue),
+    new BullMQAdapter(personQueue),
+  ]);
+
+  app.use('/admin/queues', bullBoardRouter);
 
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../../client/dist')));

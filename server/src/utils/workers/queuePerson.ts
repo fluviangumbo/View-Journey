@@ -47,3 +47,5 @@ async function fetchPopularPeople(page = 1, retries = 0) {
         }
     }
 }
+
+export default fetchPopularPeople;
