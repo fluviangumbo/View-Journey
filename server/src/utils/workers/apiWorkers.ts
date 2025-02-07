@@ -58,3 +58,5 @@ const tvShowWorker = createWorker('tvShowQueue', 'tvShows');
 const personWorker = createWorker('personQueue', 'people');
 
 export { movieWorker, tvShowWorker, personWorker };
+
+// Adding a plugin to connect with a streaming service and then show your or another person's queues and relationships so you can viewport into how another person sees the film landscape
