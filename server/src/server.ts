@@ -9,7 +9,7 @@ import { typeDefs, resolvers } from './schemas/index.js';
 import { authenticateToken } from './utils/auth.js';
 import { createBullBoard } from 'bull-board';
 import { BullMQAdapter } from 'bull-board/BullMQAdapter.js';
-import { movieQueue, tvShowQueue, personQueue } from './utils/workers/queues.js';
+import { movieQueue, tvShowQueue, personQueue } from './utils/queues/queues.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
