@@ -5,14 +5,16 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const API_KEY = process.env.TMDB_API_KEY;
-const API_BASE_URL = process.env.TMDB_API_BASE_URL;
+// const API_KEY = process.env.TMDB_API_KEY;
+// const API_BASE_URL = process.env.TMDB_API_BASE_URL;
+const ID_LIST_BASE_URL = process.env.TMDB_ID_LIST_BASE_URL;
 
-async function fetchPopularMovies(page = 1) {
+async function fetchPopularMovies(page = 1) { // Need ot update with the url for ids and setup - no longer usiong a response call from API
+    //Instead we need to pull the list from ID_LIST url and change with current date and access teh document we get - use a function like this to populate queues
     try {
-        const res = await fetch(`${API_BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
+        // const res = await fetch(`${API_BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
 
-        if (!res.ok) throw new Error(`Error fetching movies on page ${page}`);
+        // if (!res.ok) throw new Error(`Error fetching IDs`);
 
         const data = await res.json();
     
@@ -47,3 +49,5 @@ export default fetchPopularMovies;
 // cron.schedule('', () => fetchPopularMovies(1)); not sure how we want to handle this, may not need ot be a cron job at all until we get to the updating endpoint
 
 // NEW PLAN - we will export these functions to a central queuer who will use a cron job to pull the new id JSON for all three data types and then will run all three functions as part of larger functions that call the workers to process the queue, then once it is complete, we will start the next function which will also allow it's worker to process it's queue, etc.
+
+// See notes above, refamiliarizing with code
