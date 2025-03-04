@@ -1,5 +1,5 @@
 // import cron from 'node-cron';
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import { movieQueue } from './queues';
 import dotenv from 'dotenv';
 
@@ -9,9 +9,35 @@ dotenv.config();
 // const API_BASE_URL = process.env.TMDB_API_BASE_URL;
 const ID_LIST_BASE_URL = process.env.TMDB_ID_LIST_BASE_URL;
 
-async function fetchPopularMovies(page = 1) { // Need ot update with the url for ids and setup - no longer usiong a response call from API
+async function fetchMovieIDs() { // Need ot update with the url for ids and setup - no longer usiong a response call from API
     //Instead we need to pull the list from ID_LIST url and change with current date and access teh document we get - use a function like this to populate queues
     try {
+        const date = new Date(Date.now());
+
+        const month = () => {
+            const monthString = (date.getMonth() + 1).toString();
+
+            if (monthString.length == 1) {
+                return '0' + monthString;
+            }
+
+            return monthString;
+        }
+
+        const day = () => {
+            const dayString = (date.getDate()).toString();
+
+            if (dayString.length == 1) {
+                return '0' + dayString;
+            }
+
+            return dayString;
+        }
+
+        const year = (date.getFullYear()).toString();
+
+        const urlDate = `_${month}_${day}_${year}`;
+
         // const res = await fetch(`${API_BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
 
         // if (!res.ok) throw new Error(`Error fetching IDs`);
