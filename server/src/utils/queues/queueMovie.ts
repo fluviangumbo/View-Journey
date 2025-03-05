@@ -1,5 +1,7 @@
-// import cron from 'node-cron';
-// import fetch from 'node-fetch';
+import cron from 'node-cron';
+import fetch from 'node-fetch';
+import fs from 'fs';
+import path from 'path';
 import { movieQueue } from './queues';
 import dotenv from 'dotenv';
 
@@ -36,24 +38,24 @@ async function fetchMovieIDs() { // Need ot update with the url for ids and setu
 
         const year = (date.getFullYear()).toString();
 
-        const urlDate = `_${month}_${day}_${year}`;
+        const urlDate = `_${month()}_${day()}_${year}`;
 
-        // const res = await fetch(`${API_BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
+        const res = await fetch(`${ID_LIST_BASE_URL}/movie_ids${urlDate}.json.gz`);
 
-        // if (!res.ok) throw new Error(`Error fetching IDs`);
+        if (!res.ok) throw new Error(`Error fetching IDs: ${res.status} ${res.statusText}`);
 
-        const data = await res.json();
+        // const data = await res.json();
     
-        for (const movie of data.results) {
-            await movieQueue.add('fetchMovie', { itemId: movie.id });
-        }
+        // for (const movie of data.results) {
+        //     await movieQueue.add('fetchMovie', { itemId: movie.id });
+        // }
 
-        console.log(`Scheduled ${data.results.length} movies from page ${page}`);
+        // console.log(`Scheduled ${data.results.length} movies from page ${page}`);
     
-        if (page < data.total_pages) {
-            console.log(`✅ Processed page ${page}, fetching page ${page + 1}...`);
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            await fetchPopularMovies(page + 1);
+        // if (page < data.total_pages) {
+        //     console.log(`✅ Processed page ${page}, fetching page ${page + 1}...`);
+        //     await new Promise(resolve => setTimeout(resolve, 1000));
+        //     await fetchPopularMovies(page + 1);
         }
     } catch (err) {
         if (err instanceof Error) {
