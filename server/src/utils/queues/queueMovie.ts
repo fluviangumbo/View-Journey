@@ -1,7 +1,9 @@
 import cron from 'node-cron';
 import fetch from 'node-fetch';
-import fs from 'fs';
+import { createWriteStream, createReadStream, mkdirSync } from 'fs';
 import path from 'path';
+import { pipeline } from 'stream';
+import { promisify } from 'util';
 import { movieQueue } from './queues';
 import dotenv from 'dotenv';
 
@@ -10,6 +12,8 @@ dotenv.config();
 // const API_KEY = process.env.TMDB_API_KEY;
 // const API_BASE_URL = process.env.TMDB_API_BASE_URL;
 const ID_LIST_BASE_URL = process.env.TMDB_ID_LIST_BASE_URL;
+
+const streamPipeline = promisify(pipeline);
 
 async function fetchMovieIDs() { // Need ot update with the url for ids and setup - no longer usiong a response call from API
     //Instead we need to pull the list from ID_LIST url and change with current date and access teh document we get - use a function like this to populate queues
@@ -44,6 +48,17 @@ async function fetchMovieIDs() { // Need ot update with the url for ids and setu
 
         if (!res.ok) throw new Error(`Error fetching IDs: ${res.status} ${res.statusText}`);
 
+        const dir = path.resolve(__dirname, '/server/src/util/downloads');
+        mkdirSync(dir, { recursive: true });
+
+        const fileName = `movieIDs${urlDate}.json`;
+        const filePath = path.join(dir, fileName);
+
+        const fileStream = createWriteStream(filePath);
+        await streamPipeline(res.body as any, fileStream);
+
+        console.log(`Movie Ids downloaded to ${filePath}`);
+
         // const data = await res.json();
     
         // for (const movie of data.results) {
@@ -56,15 +71,15 @@ async function fetchMovieIDs() { // Need ot update with the url for ids and setu
         //     console.log(`✅ Processed page ${page}, fetching page ${page + 1}...`);
         //     await new Promise(resolve => setTimeout(resolve, 1000));
         //     await fetchPopularMovies(page + 1);
-        }
+        // }
     } catch (err) {
         if (err instanceof Error) {
-            console.error(`❌ Error fetching popular movies: ${err.message}`);
+            console.error(`❌ Error fetching movie IDs: ${err.message}`);
 
-            if (err.message.includes('429')) {
-                console.warn(`!!! Rate limit hit! Retrying movie page fetch in 1 minute...`);
-                setTimeout(() => fetchPopularMovies(page), 60 * 1000);
-            }
+            // if (err.message.includes('429')) {
+            //     console.warn(`!!! Rate limit hit! Retrying movie page fetch in 1 minute...`);
+            //     setTimeout(() => fetchPopularMovies(page), 60 * 1000);
+            // }
 
         } else {
             console.error(`Unknown error: ${JSON.stringify(err)}`);
@@ -72,7 +87,7 @@ async function fetchMovieIDs() { // Need ot update with the url for ids and setu
     }
 }
 
-export default fetchPopularMovies;
+export default fetchMovieIDs;
 
 // cron.schedule('', () => fetchPopularMovies(1)); not sure how we want to handle this, may not need ot be a cron job at all until we get to the updating endpoint
 
