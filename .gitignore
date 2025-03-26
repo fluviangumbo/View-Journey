@@ -27,3 +27,6 @@ yarn-error.log*
 /client/node_modules
 /server/dist
 /client/dist
+
+# old file setups, cron workers, etc. --- LEAVING IN CODEBASE FOR NOW
+# /server/src/archived
