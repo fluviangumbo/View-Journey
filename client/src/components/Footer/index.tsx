@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
           >
             ❤️
           </span>{' '}
-          by the Tech Thoughts team.
+          by Joel, an avid film lover. This product uses the TMDB API but is not endorsed or certified by TMDB.
         </h4>
       </div>
     </footer>

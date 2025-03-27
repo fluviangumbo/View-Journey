@@ -7,9 +7,9 @@ import { ApolloServer } from '@apollo/server';// Note: Import from @apollo/serve
 import { expressMiddleware } from '@apollo/server/express4';
 import { typeDefs, resolvers } from './schemas/index.js';
 import { authenticateToken } from './utils/auth.js';
-import { createBullBoard } from 'bull-board';
-import { BullMQAdapter } from 'bull-board/BullMQAdapter.js';
-import { movieQueue, tvShowQueue, personQueue } from './utils/queues/queues.js';
+// import { createBullBoard } from 'bull-board';
+// import { BullMQAdapter } from 'bull-board/BullMQAdapter.js';
+// import { movieQueue, tvShowQueue, personQueue } from './utils/queues/queues.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -34,13 +34,13 @@ const startApolloServer = async () => {
     }
   ));
 
-  const { router: bullBoardRouter } = createBullBoard([
-    new BullMQAdapter(movieQueue),
-    new BullMQAdapter(tvShowQueue),
-    new BullMQAdapter(personQueue),
-  ]);
+  // const { router: bullBoardRouter } = createBullBoard([
+  //   new BullMQAdapter(movieQueue),
+  //   new BullMQAdapter(tvShowQueue),
+  //   new BullMQAdapter(personQueue),
+  // ]);
 
-  app.use('/admin/queues', bullBoardRouter);
+  // app.use('/admin/queues', bullBoardRouter);
 
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../../client/dist')));
@@ -53,7 +53,7 @@ const startApolloServer = async () => {
   app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
     console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
-    console.log(`Bull-Board UI available at http://localhost:${PORT}/admin/queues`);
+    // console.log(`Bull-Board UI available at http://localhost:${PORT}/admin/queues`);
   });
 };
 
