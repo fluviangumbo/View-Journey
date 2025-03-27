@@ -1,5 +1,6 @@
 import { User } from '../models/index.js';
-import { signToken, AuthenticationError } from '../utils/auth.js'; 
+import { signToken, AuthenticationError } from '../utils/auth.js';
+import { filmSearch, tvSearch, personSearch, getMovieDetails, getTVShowDetails, getPersonDetails } from '../api/tmdbReq.js';
 
 // Define types for the arguments
 interface AddUserArgs {
@@ -55,6 +56,24 @@ const resolvers = {
       }
       // If the user is not authenticated, throw an AuthenticationError
       throw new AuthenticationError('Could not authenticate user.');
+    },
+    searchMovies: async (_parent: any, { title }: { title: string }) => {
+      return await filmSearch(title);
+    },
+    movieDetails: async (_parent: any, { tmdbID }: { tmdbID: number }) => {
+      return await getMovieDetails(tmdbID);
+    },
+    searchTV: async (_parent: any, { title }: { title: string }) => {
+      return await tvSearch(title);
+    },
+    show: async (_parent: any, { tmdbID }: { tmdbID: number }) => {
+      return await getTVShowDetails(tmdbID);
+    },
+    searchPeople: async (_parent: any, { name }: { name: string }) => {
+      return await personSearch(name);
+    },
+    person: async (_parent: any, { tmdbID }: { tmdbID: number }) => {
+      return await getPersonDetails(tmdbID);
     },
   },
   Mutation: {

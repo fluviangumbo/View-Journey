@@ -144,10 +144,12 @@ const typeDefs = `
     users: [User]
     user(username: String!): User
     me: User
-    movie(tmdbID: ID!): Movie
-    show(tmdbID: ID!): TVShow
-    people: [Person]
-    person(tmdbID: ID!): Person
+    searchMovies(title: String!): [Movie]
+    movieDetails(tmdbID: Int!): Movie
+    searchTV(title: String!): [TVShow]
+    show(tmdbID: Int!): TVShow
+    searchPeople(name: String!): [Person]
+    person(tmdbID: Int!): Person
     critiques: [Critique]
     critique(critiqueId: ID!): Critique
     userMetrics(username: String!): [Metric]
@@ -173,7 +175,7 @@ const typeDefs = `
 
 export default typeDefs;
 
-// Must add the functionality(another model?) for the user to create their oewn metrics, connect to user/movie, then find a way to make that scalable so that the metrics can be combined, QUERIES AND MUTATIONS NOT TOUCHED
+// Must add the functionality(another model?) for the user to create their own metrics, connect to user/movie, then find a way to make that scalable so that the metrics can be combined, QUERIES AND MUTATIONS NOT TOUCHED
 
 // CHANGES TO MODELS - Added score and metric/critique complexity and set up for templates and referencing others metrics, now need to add typedefs and finalize this side - if we can do that, we should just have resolvers for backend and then we can test with dummy data or jump right into cron/worker for tmdb API
 
